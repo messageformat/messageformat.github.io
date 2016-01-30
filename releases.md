@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Releases
 ---
 
 <div class="posts">
