@@ -75,4 +75,4 @@ With default options, compiled messageformat functions are available through the
 ```
 will log `"Your 3 messages go here."`
 
-A working example is available [here](https://github.com/SlexAxton/messageformat.js/tree/master/example).
+A working example is available [here](http://rawgit.com/SlexAxton/messageformat.js/master/example/index.html).

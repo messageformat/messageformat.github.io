@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: default
+title: Home
 ---
 
 The experience and subtlety of your program's text can be important. MessageFormat is a mechanism for handling both **pluralization** and **gender** in your applications. It can also lead to much better translations, as it's designed to support [all the languages](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html) included in the [Unicode CLDR](http://cldr.unicode.org/).
@@ -77,7 +78,7 @@ var MessageFormat = require('messageformat');
 var mf = new MessageFormat('en');
 ```
 
-### Browser
+### Bower
 ```
 bower install messageformat
 ```
