@@ -24,12 +24,12 @@ With this message:
 
 ```js
 > var msg =
-    '{GENDER, select, male {He} female {She} other {They} }' +
-    ' found ' +
-    '{RESULTS, plural, =0 {no results} one {1 result} other {# results} }' +
-    ' in the ' +
-    '{CATEGORY, selectordinal, one{#st} two{#nd} few{#rd} other{#th} }' +
-    ' category.';
+  '{GENDER, select, male{He} female{She} other{They} }' +
+  ' found ' +
+  '{RES, plural, =0{no results} one{1 result} other{# results} }' +
+  ' in the ' +
+  '{CAT, selectordinal, one{#st} two{#nd} few{#rd} other{#th} }' +
+  ' category.';
 ```
 
 You'll get these results:
@@ -37,17 +37,17 @@ You'll get these results:
 ```js
 > var mfunc = new MessageFormat('en').compile(msg);
 
-> mfunc({ GENDER: 'male', RESULTS: 1, CATEGORIES: 2 })
-'He found 1 result in 2 categories.'
+> mfunc({ GENDER: 'male', RES: 1, CAT: 2 })
+'He found 1 result in the 2nd category.'
 
-> mfunc({ GENDER: 'female', RESULTS: 1, CATEGORIES: 2 })
-'She found 1 result in 2 categories.'
+> mfunc({ GENDER: 'female', RES: 1, CAT: 2 })
+'She found 1 result in the 2nd category.'
 
-> mfunc({ GENDER: 'male', RESULTS: 2, CATEGORIES: 1 })
-'He found 2 results in 1 category.'
+> mfunc({ GENDER: 'male', RES: 2, CAT: 1 })
+'He found 2 results in the 1st category.'
 
-> mfunc({ RESULTS: 2, CATEGORIES: 2 })
-'They found 2 results in 2 categories.'
+> mfunc({ RES: 2, CAT: 2 })
+'They found 2 results in the 2nd category.'
 ```
 
 
@@ -65,7 +65,7 @@ You'll get these results:
 * Supports Unicode
 
 
-## Install
+## Installation
 
 ### Node
 ```
@@ -88,38 +88,3 @@ bower install messageformat
   var mf = new MessageFormat('en');
 </script>
 ```
-
-
-## License
-
-You may use this software under the MIT License.
-
-You may contribute to this software under the Dojo CLA - <http://dojofoundation.org/about/cla>
-
-
-## Author
-
-* Alex Sexton - [@SlexAxton](http://twitter.com/SlexAxton) - <http://alexsexton.com/>
-
-## Major Contributors
-
-* Eemeli Aro - [@eemeli](https://github.com/eemeli)
-
-
-## Credits
-
-Thanks to:
-
-* [Bazaarvoice](https://github.com/Bazaarvoice) - my employer - for letting me do cool stuff like this.
-* Google has an implementation that is similar in Google Closure, I tried to vet my code against many of their tests.
-* Norbert Lindenberg for showing me how good it can be.
-
-
-## Implementations in other languages
-
-[Jeff Hansen](https://github.com/jeffijoe) ([@jeffijoe](https://twitter.com/jeffijoe)) has written an [implementation for .NET](https://github.com/jeffijoe/messageformat.net) - it's a Portable Class Library, making it possible to use on iOS, Android, Windows Phone, and pretty much any other .NET target.
-
-
-## Additional tools
-
-[icu-converter](https://github.com/alex-dow/icu-converter) is a NodeJS tool for converting message files in the [ICU Resource Bundle](http://userguide.icu-project.org/locale/resources) format into JSON or .property files.

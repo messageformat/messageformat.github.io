@@ -10,7 +10,7 @@ relative_permalinks: true
 title:            messageformat.js
 tagline:          'ICU MessageFormat for Javascript'
 description:      'Gender- and plural-capable messages using ICU MessageFormat'
-url:              http://messageformat.githu.io
+url:              https://messageformat.github.io
 baseurl:          /
 
 author:
@@ -21,6 +21,9 @@ paginate:         5
 
 # Custom vars
 version:          0.3.0
+
+npm:
+  link:           https://www.npmjs.com/package/messageformat
 
 github:
   repo:           https://github.com/SlexAxton/messageformat.js
