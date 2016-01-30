@@ -11,12 +11,9 @@ You may use this software under the MIT License.
 You may contribute to this software under the [Dojo CLA](http://dojofoundation.org/about/cla).
 
 
-## Original author
+## Authors
 
 * Alex Sexton - [@SlexAxton](http://twitter.com/SlexAxton) - <http://alexsexton.com/>
-
-## Major contributor
-
 * Eemeli Aro - [@eemeli](http://twitter.com/eemeli_aro) - <https://github.com/eemeli>
 
 
