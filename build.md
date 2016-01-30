@@ -15,48 +15,21 @@ For a significant decrease in filesize and execution time, you should precompile
     ordinal: 'The {N, selectordinal, one{1st} two{2nd} few{3rd} other{#th}} message.' };
 
 > var mfunc = mf.compile(messages);
-> mfunc().ordinal({N:3})
-'The 3rd message.'
+> mfunc().ordinal({N:1})
+'The 1st message.'
 
-> console.log(mfunc.toString())
-function anonymous() {
-var number = function (value, offset) {
-  if (isNaN(value)) throw new Error("'" + value + "' isn't a number.");
-  return value - (offset || 0);
-};
-var plural = function (value, offset, lcfunc, data, isOrdinal) {
-  if ({}.hasOwnProperty.call(data, value)) return data[value]();
-  if (offset) value -= offset;
-  var key = lcfunc(value, isOrdinal);
-  if (key in data) return data[key]();
-  return data.other();
-};
-var select = function (value, data) {
-  if ({}.hasOwnProperty.call(data, value)) return data[value]();
-  return data.other()
-};
-var pluralFuncs = {
-  en: function (n, ord) {
-    var s = String(n).split('.'), v0 = !s[1], t0 = Number(s[0]) == n,
-        n10 = t0 && s[0].slice(-1), n100 = t0 && s[0].slice(-2);
-    if (ord) return (n10 == 1 && n100 != 11) ? 'one'
-        : (n10 == 2 && n100 != 12) ? 'two'
-        : (n10 == 3 && n100 != 13) ? 'few'
-        : 'other';
-    return (n == 1 && v0) ? 'one' : 'other';
-  }
-};
-var fmt = {};
-
-return {
-  simple: function(d) { return "A simple message."; },
-  var: function(d) { return "Message with " + d.X + "."; },
-  plural: function(d) { return "You have " + plural(d.N, 0, pluralFuncs.en, { 0: function() { return "no messages";}, one: function() { return "1 message";}, other: function() { return number(d.N) + " messages";} }) + "."; },
-  select: function(d) { return select(d.GENDER, { male: function() { return "He has";}, female: function() { return "She has";}, other: function() { return "They have";} }) + " sent you a message."; },
-  ordinal: function(d) { return "The " + plural(d.N, 0, pluralFuncs.en, { one: function() { return "1st";}, two: function() { return "2nd";}, few: function() { return "3rd";}, other: function() { return number(d.N) + "th";} }, 1) + " message."; }
-}
-}
+> var efunc = new Function('return (' + mfunc.toString() + ')()');
+> efunc()
+{ simple: [Function],
+  var: [Function],
+  plural: [Function],
+  select: [Function],
+  ordinal: [Function] }
+> efunc().ordinal({N:2})
+'The 2nd message.'
 ```
+
+Note that as `efunc` is defined as a `new Function()`, it has no access to the surrounding scope; the output of `mfunc().toString()` can be saved as a file and later included with `require()` or `<script src=...>`, providing access to the compiled functions that is completely independent of messageformat.js, or any other dependencies.
 
 
 ## CLI Compiler

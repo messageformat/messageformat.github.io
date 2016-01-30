@@ -1,6 +1,5 @@
 ---
 layout: page
-title: messageformat.js
 ---
 
 The experience and subtlety of your program's text can be important. MessageFormat is a mechanism for handling both **pluralization** and **gender** in your applications. It can also lead to much better translations, as it's designed to support [all the languages](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html) included in the [Unicode CLDR](http://cldr.unicode.org/).
@@ -12,27 +11,25 @@ There is a good slide-deck on [Plural and Gender in Translated Messages](https:/
 
 ## What problems does it solve?
 
-Using messageformat.js, you can separate your code from your text formatting, while enabling much more humane expressions. In other words, you won't see this anymore:
+Using messageformat.js, you can separate your code from your text formatting, while enabling much more humane expressions. In other words, you won't need to see this anymore in your output:
 
 > There are 1 results.  
 > There are 1 result(s).  
 > Number of results: 5.
 
-These are generally unacceptable in this day and age. Not to mention the problem expands when you consider languages with 6 different pluralization rules. You may be using something like Gettext to solve this across multiple languages, but even Gettext falls flat.
-
 
 ## What does it look like?
 
-With this message (shown with extra lines for simplicity):
+With this message:
 
 ```js
-> console.log(msg)
-{GENDER, select, male {He} female {She} other {They} }
-found
-{RESULTS, plural, =0 {no results} one {1 result} other {# results} }
-in the
-{CATEGORY, selectordinal, one{#st} two{#nd} few{#rd} other{#th} }
-category.
+> var msg =
+    '{GENDER, select, male {He} female {She} other {They} }' +
+    ' found ' +
+    '{RESULTS, plural, =0 {no results} one {1 result} other {# results} }' +
+    ' in the ' +
+    '{CATEGORY, selectordinal, one{#st} two{#nd} few{#rd} other{#th} }' +
+    ' category.';
 ```
 
 You'll get these results:
@@ -59,11 +56,10 @@ You'll get these results:
 * Handles arbitrary nesting of pluralization and select rules
 * Supports all ~466 languages included in the Unicode CLDR
 * Works on the server and the client
-* No i18n necessary &ndash; you can use it for just well-formed english sentences `UX++;`
+* Remarkably useful even for single-language use
 * Speed & efficiency: Can pre-compile messages to JavaScript code
   * Great for speed: message formatting is just string concatenation
-  * Run a precompiler at build time and include just  `filesize--;`
-* Compatible with other languages that support MessageFormat
+* Compatible with other MessageFormat implementations
 * Extendable with custom formatting functions
 * Very whitespace tolerant
 * Supports Unicode
