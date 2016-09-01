@@ -14,16 +14,16 @@ You may contribute to this software under the [Dojo CLA](http://dojofoundation.o
 ## Authors
 
 * Alex Sexton - [@SlexAxton](http://twitter.com/SlexAxton) - <http://alexsexton.com/>
-* Eemeli Aro - [@eemeli](http://twitter.com/eemeli_aro) - <https://github.com/eemeli>
+* Eemeli Aro - [@eemeli_aro](http://twitter.com/eemeli_aro) - <https://github.com/eemeli>
 
 
 ## Credits
 
 Thanks to:
 
-* [Bazaarvoice](https://github.com/Bazaarvoice) - my employer - for letting me do cool stuff like this.
-* Google has an implementation that is similar in Google Closure, I tried to vet my code against many of their tests.
-* Norbert Lindenberg for showing me how good it can be.
+* [Bazaarvoice](https://github.com/Bazaarvoice) - Alex's previous employer - for letting him do cool stuff like this.
+* Google has an implementation that is similar in Google Closure, the code has been vetted against many of their tests.
+* Norbert Lindenberg for showing Alex how good it can be.
 
 
 ## Implementations in other languages
