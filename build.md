@@ -40,40 +40,39 @@ Note that as `efunc` is defined as a `new Function()`, it has no access to the s
 A [CLI compiler](https://github.com/messageformat/messageformat.js/tree/master/bin/messageformat.js) is also included, available as `./node_modules/.bin/messageformat` or just `messageformat` when installed with `npm install -g`.
 
 ```text
-$ messageformat --help
-Usage: messageformat -l [locale] [OPTIONS] [INPUT_DIR] [OUTPUT_DIR]
+$ messageformat
+usage: messageformat [-l lc] [-n ns] [-p] input
 
-Available options:
-   -l,	--locale	locale(s) to use [mandatory]
-   -i,	--inputdir	directory containing messageformat files to compile
-   -o,	--output	output where messageformat will be compiled
-   -ns,	--namespace	global object in the output containing the templates
-   -I,	--include	glob patterns for files to include from `inputdir`
-   -m,	--module	create a commonJS module, instead of a global window variable
-   -s,	--stdout	print the result in stdout instead of writing in a file
-   -w,	--watch  	watch `inputdir` for changes
-   -v,	--verbose	print logs for debug
-```
+Parses the input JSON file(s) of MessageFormat strings into a JS module of
+corresponding hierarchical functions, written to stdout. Directories are
+recursively scanned for all .json files.
 
-`messageformat` will recursively read all JSON files in `inputdir` and compile them to `output`.
+  -l lc, --locale=lc
+        The locale(s) lc to include; if multiple, selected by matching
+        message key. [default: en]
 
-When using the CLI, the following commands will each produce the same results as included in the [examples](https://github.com/messageformat/messageformat.js/tree/master/example/en):
+  -n ns, --namespace=ns
+        The global object or modules format for the output JS. If ns does not
+        contain a '.', the output follows an UMD pattern. For module support,
+        the values 'export default' (ES6), 'exports' (CommonJS), and
+        'module.exports' (node.js) are special. [default: module.exports]
 
-```
-$ messageformat --locale en --namespace i18n --inputdir ./example/en --output ./i18n.js
-$ messageformat --locale en ./example/en ./i18n.js
-$ messageformat -l en ./example/en
+  -p, --disable-plural-key-checks
+        By default, messageformat.js throws an error when a statement uses a
+        non-numerical key that will never be matched as a pluralization
+        category for the current locale. Use this argument to disable the
+        validation and allow unused plural keys. [default: false]
 ```
 
 
 ## Using compiled messageformat.js output
 
-With default options, compiled messageformat functions are available through the `i18n` global object, with each source json having a corresponding subobject. Hence the compiled function corresponding to the `test` message defined in [`example/en/sub/folder/plural.json`](https://github.com/messageformat/messageformat.js/tree/master/example/en/sub/folder/plural.json) is available as [`i18n['sub/folder/plural'].plural`](https://github.com/messageformat/messageformat.js/tree/master/example/en/i18n.js):
+With default options, compiled messageformat functions are available through `module.exports`. However, using e.g. `-n i18n`, an UMD pattern is used, falling back to a global `i18n` object, with each source json having a corresponding subobject. Hence the compiled function corresponding to the `test` message defined in [`example/en/sub/folder/plural.json`](https://github.com/messageformat/messageformat.js/tree/master/example/en/sub/folder/plural.json) is available as [`i18n.sub.folder.plural.test`](https://github.com/messageformat/messageformat.js/tree/master/example/en/i18n.js):
 
 ```html
 <script src="path/to/messageformat/example/en/i18n.js"></script>
 <script>
-  console.log(i18n['sub/folder/plural'].plural({NUM: 3}));
+  console.log(i18n.sub.folder.plural.test({ NUM: 3 }));
 </script>
 ```
 will log `"Your 3 messages go here."`
