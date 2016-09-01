@@ -36,7 +36,7 @@ Note that as `efunc` is defined as a `new Function()`, it has no access to the s
 
 ## CLI Compiler
 
-A [CLI compiler](https://github.com/SlexAxton/messageformat.js/tree/master/bin/messageformat.js) is also included, available as `./node_modules/.bin/messageformat` or just `messageformat` when installed with `npm install -g`.
+A [CLI compiler](https://github.com/messageformat/messageformat.js/tree/master/bin/messageformat.js) is also included, available as `./node_modules/.bin/messageformat` or just `messageformat` when installed with `npm install -g`.
 
 ```text
 $ messageformat --help
@@ -56,7 +56,7 @@ Available options:
 
 `messageformat` will recursively read all JSON files in `inputdir` and compile them to `output`.
 
-When using the CLI, the following commands will each produce the same results as included in the [examples](https://github.com/SlexAxton/messageformat.js/tree/master/example/en):
+When using the CLI, the following commands will each produce the same results as included in the [examples](https://github.com/messageformat/messageformat.js/tree/master/example/en):
 
 ```
 $ messageformat --locale en --namespace i18n --inputdir ./example/en --output ./i18n.js
@@ -67,7 +67,7 @@ $ messageformat -l en ./example/en
 
 ## Using compiled messageformat.js output
 
-With default options, compiled messageformat functions are available through the `i18n` global object, with each source json having a corresponding subobject. Hence the compiled function corresponding to the `test` message defined in [`example/en/sub/folder/plural.json`](https://github.com/SlexAxton/messageformat.js/tree/master/example/en/sub/folder/plural.json) is available as [`i18n['sub/folder/plural'].plural`](https://github.com/SlexAxton/messageformat.js/tree/master/example/en/i18n.js):
+With default options, compiled messageformat functions are available through the `i18n` global object, with each source json having a corresponding subobject. Hence the compiled function corresponding to the `test` message defined in [`example/en/sub/folder/plural.json`](https://github.com/messageformat/messageformat.js/tree/master/example/en/sub/folder/plural.json) is available as [`i18n['sub/folder/plural'].plural`](https://github.com/messageformat/messageformat.js/tree/master/example/en/i18n.js):
 
 ```html
 <script src="path/to/bower_components/messageformat/example/en/i18n.js"></script>
