@@ -20,18 +20,19 @@ mfunc().ordinal({ N: 1 })
   // "The 1st message."
 
 var efunc = new Function('return (' + mfunc.toString() + ')()');
-efunc()
+
+efunc();
 // { simple: [Function],
 //   var: [Function],
 //   plural: [Function],
 //   select: [Function],
 //   ordinal: [Function] }
 
-efunc().ordinal({N:2})
+efunc().ordinal({ N: 2 });
   // "The 2nd message."
 ```
 
-Note that as `efunc` is defined as a `new Function()`, it has no access to the surrounding scope; the output of `mfunc().toString()` can be saved as a file and later included with `require()` or `<script src=...>`, providing access to the compiled functions that is completely independent of messageformat.js, or any other dependencies.
+Note that as `efunc` is defined as a `new Function()`, it has no access to the surrounding scope. This means that the output of `mfunc().toString()` can be saved as a file and later included with `require()` or `<script src=...>`, providing access to the compiled functions completely independently of messageformat.js, or any other dependencies.
 
 
 ## CLI Compiler
@@ -70,7 +71,7 @@ $ messageformat -l en ./example/en
 With default options, compiled messageformat functions are available through the `i18n` global object, with each source json having a corresponding subobject. Hence the compiled function corresponding to the `test` message defined in [`example/en/sub/folder/plural.json`](https://github.com/messageformat/messageformat.js/tree/master/example/en/sub/folder/plural.json) is available as [`i18n['sub/folder/plural'].plural`](https://github.com/messageformat/messageformat.js/tree/master/example/en/i18n.js):
 
 ```html
-<script src="path/to/bower_components/messageformat/example/en/i18n.js"></script>
+<script src="path/to/messageformat/example/en/i18n.js"></script>
 <script>
   console.log(i18n['sub/folder/plural'].plural({NUM: 3}));
 </script>
