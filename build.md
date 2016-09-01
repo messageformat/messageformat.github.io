@@ -6,27 +6,29 @@ title: Build-time Compilation
 For a significant decrease in filesize and execution time, you should precompile your messages to JavaScript during your build phase. It works like this:
 
 ```js
-> var mf = new MessageFormat('en');
-> var messages = {
-    simple: 'A simple message.',
-    var: 'Message with {X}.',
-    plural: 'You have {N, plural, =0{no messages} one{1 message} other{# messages}}.',
-    select: '{GENDER, select, male{He has} female{She has} other{They have}} sent you a message.',
-    ordinal: 'The {N, selectordinal, one{1st} two{2nd} few{3rd} other{#th}} message.' };
+var mf = new MessageFormat('en');
+var messages = {
+  simple: 'A simple message.',
+  var: 'Message with {X}.',
+  plural: 'You have {N, plural, =0{no messages} one{1 message} other{# messages}}.',
+  select: '{GENDER, select, male{He has} female{She has} other{They have}} sent you a message.',
+  ordinal: 'The {N, selectordinal, one{1st} two{2nd} few{3rd} other{#th}} message.'
+};
 
-> var mfunc = mf.compile(messages);
-> mfunc().ordinal({N:1})
-'The 1st message.'
+var mfunc = mf.compile(messages);
+mfunc().ordinal({ N: 1 })
+  // "The 1st message."
 
-> var efunc = new Function('return (' + mfunc.toString() + ')()');
-> efunc()
-{ simple: [Function],
-  var: [Function],
-  plural: [Function],
-  select: [Function],
-  ordinal: [Function] }
-> efunc().ordinal({N:2})
-'The 2nd message.'
+var efunc = new Function('return (' + mfunc.toString() + ')()');
+efunc()
+// { simple: [Function],
+//   var: [Function],
+//   plural: [Function],
+//   select: [Function],
+//   ordinal: [Function] }
+
+efunc().ordinal({N:2})
+  // "The 2nd message."
 ```
 
 Note that as `efunc` is defined as a `new Function()`, it has no access to the surrounding scope; the output of `mfunc().toString()` can be saved as a file and later included with `require()` or `<script src=...>`, providing access to the compiled functions that is completely independent of messageformat.js, or any other dependencies.
@@ -36,7 +38,7 @@ Note that as `efunc` is defined as a `new Function()`, it has no access to the s
 
 A [CLI compiler](https://github.com/SlexAxton/messageformat.js/tree/master/bin/messageformat.js) is also included, available as `./node_modules/.bin/messageformat` or just `messageformat` when installed with `npm install -g`.
 
-```
+```text
 $ messageformat --help
 Usage: messageformat -l [locale] [OPTIONS] [INPUT_DIR] [OUTPUT_DIR]
 

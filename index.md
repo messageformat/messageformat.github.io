@@ -24,7 +24,7 @@ Using messageformat.js, you can separate your code from your text formatting, wh
 With this message:
 
 ```js
-> var msg =
+var msg =
   '{GENDER, select, male{He} female{She} other{They} }' +
   ' found ' +
   '{RES, plural, =0{no results} one{1 result} other{# results} }' +
@@ -36,19 +36,19 @@ With this message:
 You'll get these results:
 
 ```js
-> var mfunc = new MessageFormat('en').compile(msg);
+var mfunc = new MessageFormat('en').compile(msg);
 
-> mfunc({ GENDER: 'male', RES: 1, CAT: 2 })
-'He found 1 result in the 2nd category.'
+mfunc({ GENDER: 'male', RES: 1, CAT: 2 })
+// 'He found 1 result in the 2nd category.'
 
-> mfunc({ GENDER: 'female', RES: 1, CAT: 2 })
-'She found 1 result in the 2nd category.'
+mfunc({ GENDER: 'female', RES: 1, CAT: 2 })
+// 'She found 1 result in the 2nd category.'
 
-> mfunc({ GENDER: 'male', RES: 2, CAT: 1 })
-'He found 2 results in the 1st category.'
+mfunc({ GENDER: 'male', RES: 2, CAT: 1 })
+// 'He found 2 results in the 1st category.'
 
-> mfunc({ RES: 2, CAT: 2 })
-'They found 2 results in the 2nd category.'
+mfunc({ RES: 2, CAT: 2 })
+// 'They found 2 results in the 2nd category.'
 ```
 
 
