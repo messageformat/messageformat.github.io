@@ -7,6 +7,8 @@ title: Format Guide
 * [Variables](#variables)
 * [SelectFormat](#selectFormat)
 * [PluralFormat](#pluralFormat)
+* [Intl Formatters](#intl-formatters)
+* [Custom Formatters](#custom-formatters)
 * [Nesting](#nesting)
 * [Escaping](#escaping)
 
@@ -120,6 +122,96 @@ offsetMessage({ NUM_ADDS: 2 });
 
 offsetMessage({ NUM_ADDS: 3 });
   // "You and 2 others added this."
+```
+
+
+## Intl Formatters
+
+MessageFormat also includes date, number, and time formatting functions in the style of ICU's [simpleArg syntax](http://icu-project.org/apiref/icu4j/com/ibm/icu/text/MessageFormat.html). They are implemented using the [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) object defined by ECMA-402.
+
+**Note**: Intl is not defined in Node by default until 0.11.15 / 0.12.0 and is not available in all browsers, so you may need to use a [polyfill](https://www.npmjs.com/package/intl).
+
+Because native or polyfilled support is not guaranteed, you must call `setIntlSupport()` on your MessageFormat object before these will be available.
+
+### date
+
+Supported parameters are 'short', 'default', 'long' , or 'full'.
+
+```javascript
+var mf = new MessageFormat(['en', 'fi']).setIntlSupport(true);
+
+mf.compile('Today is {T, date}')({ T: Date.now() })
+// 'Today is Feb 21, 2016'
+
+mf.compile('Tänään on {T, date}', 'fi')({ T: Date.now() })
+// 'Tänään on 21. helmikuuta 2016'
+
+mf.compile('Unix time started on {T, date, full}')({ T: 0 })
+// 'Unix time started on Thursday, January 1, 1970'
+
+var cf = mf.compile('{sys} became operational on {d0, date, short}');
+cf({ sys: 'HAL 9000', d0: '12 January 1999' })
+// 'HAL 9000 became operational on 1/12/1999'
+```
+
+### number
+
+Supported parameters are 'integer', 'percent' , or 'currency'.
+
+```javascript
+var mf = new MessageFormat('en').setIntlSupport(true);
+mf.currency = 'EUR';  // needs to be set before first compile() call
+
+mf.compile('{N} is almost {N, number, integer}')({ N: 3.14 })
+// '3.14 is almost 3'
+
+mf.compile('{P, number, percent} complete')({ P: 0.99 })
+// '99% complete'
+
+mf.compile('The total is {V, number, currency}.')({ V: 5.5 })
+// 'The total is €5.50.'
+```
+
+### time
+
+Supported parameters are 'short', 'default', 'long' , or 'full'.
+
+```javascript
+var mf = new MessageFormat(['en', 'fi']).setIntlSupport(true);
+
+mf.compile('The time is now {T, time}')({ T: Date.now() })
+// 'The time is now 11:26:35 PM'
+
+mf.compile('Kello on nyt {T, time}', 'fi')({ T: Date.now() })
+// 'Kello on nyt 23.26.35'
+
+var cf = mf.compile('The Eagle landed at {T, time, full} on {T, date, full}');
+cf({ T: '1969-07-20 20:17:40 UTC' })
+// 'The Eagle landed at 10:17:40 PM GMT+2 on Sunday, July 20, 1969'
+```
+
+
+## Custom Formatters
+
+MessageFormat also supports custom formatters. Call `addFormatters()` on your MessageFormat object and provide it with a map of formatter names to formatter functions. Given a string containing `{var, yourFormatterName, arg1, arg2}`, your callback will be called with three parameters: the value of the variable, the current locale, and an array of [arg1, arg2].
+
+
+```javascript
+var mf = new MessageFormat('en-GB');
+mf.addFormatters({
+  upcase: function(v) { return v.toUpperCase(); },
+  locale: function(v, lc) { return lc; },
+  prop: function(v, lc, p) { return v[p] }
+});
+
+mf.compile('This is {VAR, upcase}.')({ VAR: 'big' })
+// 'This is BIG.'
+
+mf.compile('The current locale is {_, locale}.')({ _: '' })
+// 'The current locale is en-GB.'
+
+mf.compile('Answer: {obj, prop, a}')({ obj: {q: 3, a: 42} })
+// 'Answer: 42'
 ```
 
 
