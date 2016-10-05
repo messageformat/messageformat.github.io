@@ -5,8 +5,8 @@ title: Format Guide
 
 ## Contents
 * [Variables](#variables)
-* [SelectFormat](#selectFormat)
-* [PluralFormat](#pluralFormat)
+* [SelectFormat](#selectformat)
+* [PluralFormat](#pluralformat)
 * [Intl Formatters](#intl-formatters)
 * [Custom Formatters](#custom-formatters)
 * [Nesting](#nesting)
