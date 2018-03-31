@@ -79,12 +79,12 @@ With default options, compiled messageformat functions are available through `mo
 ```
 will log `"Your 3 messages go here."`
 
-A working example is available [here](/messageformat.js/example/index.html).
+A working example is available [here](/code/example/index.html).
 
 
 ## Other JavaSCript Build Environments
 
-To precompile messages in other JavaScript environments, you should make use of the object input format of [`MessageFormat#compile()`](http://messageformat.github.io/messageformat.js/doc/MessageFormat.html#compile), the output of which is stringifiable for later execution in other environments.
+To precompile messages in other JavaScript environments, you should make use of the object input format of [`MessageFormat#compile()`](http://messageformat.github.io/code/doc/MessageFormat.html#compile), the output of which is stringifiable for later execution in other environments.
 
 It works like this:
 
