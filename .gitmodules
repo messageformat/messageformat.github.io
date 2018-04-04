@@ -1,3 +1,0 @@
-[submodule "messageformat.js"]
-	path = code
-	url = https://github.com/messageformat/messageformat.js.git
