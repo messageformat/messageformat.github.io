@@ -21,6 +21,8 @@ jobs:
 
       - run: npm ci
         working-directory: messageformat
+      - run: npm run build -w mf1/packages/parser
+        working-directory: messageformat
       - run: npx typedoc --out ../website/
         working-directory: messageformat
       - run: mv index.html mf2.html
