@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: website
+      - uses: actions/checkout@v4
+        with:
+          repository: messageformat/messageformat
+          ref: mf2-docs
+          path: messageformat
+
+      - run: npm ci
+        working-directory: messageformat
+      - run: npx typedoc --out ../website/
+        working-directory: messageformat
+      - run: mv index.html mf2.html
+        working-directory: website
+      - run: mv _ index.html
+        working-directory: website
+
+      - name: git config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git add .
+        working-directory: website
+      - name: git commit & push any changes
+        run: |
+          git diff-index --quiet HEAD || (git commit -m "Update from messageformat @ $(cd ../messageformat && git rev-parse --short HEAD)" && git push)
+        working-directory: website
