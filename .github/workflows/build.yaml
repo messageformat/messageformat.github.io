@@ -20,11 +20,14 @@ jobs:
           ref: mf2-docs
           path: messageformat
 
+      - run: rm -rf *
+        working-directory: website
+
       - run: npm ci
         working-directory: messageformat
       - run: npm run build -w mf1/packages/parser
         working-directory: messageformat
-      - run: npx typedoc --out ../website/
+      - run: npx typedoc --cleanOutputDir false --out ../website/
         working-directory: messageformat
       - run: mv index.html mf2.html
         working-directory: website
