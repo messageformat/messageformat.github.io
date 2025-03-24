@@ -17,7 +17,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: messageformat/messageformat
-          ref: mf2-docs
           path: messageformat
 
       - run: rm -rf *
@@ -25,14 +24,10 @@ jobs:
 
       - run: npm ci
         working-directory: messageformat
-      - run: npm run build -w mf1/packages/parser
+      - run: npm run build -w mf1/packages/parser -w mf1/packages/date-skeleton -w mf1/packages/number-skeleton
         working-directory: messageformat
       - run: npx typedoc --cleanOutputDir false --out ../website/
         working-directory: messageformat
-      - run: mv index.html mf2.html
-        working-directory: website
-      - run: mv _ index.html
-        working-directory: website
 
       - name: git config
         run: |
